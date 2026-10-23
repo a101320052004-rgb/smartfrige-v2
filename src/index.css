@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* ─── Custom font-size utilities (not in Tailwind default scale) ─── */
+@layer utilities {
+  .text-3xs {
+    font-size: 0.625rem;   /* 10px */
+    line-height: 1rem;
+  }
+  .text-2xs {
+    font-size: 0.6875rem;  /* 11px */
+    line-height: 1.1rem;
+  }
+}
+
+/* ─── Custom color tokens (fill gaps in Tailwind palette) ─── */
+@theme {
+  --color-slate-55:    #f9fafc;
+  --color-slate-150:   #e8ecf2;
+  --color-teal-850:    #115e59;
+  --color-emerald-990: #022c22;
+}
+
+/* ─── 手機「像 App」的滿版體驗 ───
+   從主畫面 App 圖示啟動時 (standalone) 生效，一般 Safari 瀏覽不受影響。 */
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;          /* 動態視窗高度，避免被瀏覽器列擠壓 */
+  background: #ffffff;
+  overscroll-behavior-y: none; /* 關掉下拉白色回彈，較不像網頁 */
+}
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* 只有「加到主畫面」全螢幕啟動時，才補上瀏海 / 底部 home 條的安全區留白 */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+  }
+}
